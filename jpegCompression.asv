@@ -1,7 +1,5 @@
 function jpegCompression(image)
 
-    fprintf('Image file %s to be processed.', image);
-
     rgb = imread(image);
     
     % STEP 1: COMPRESSION
@@ -196,7 +194,7 @@ function jpegCompression(image)
     step1_subsample = strcat('step1_subsample_', image);
     step1_dct = strcat('step1_dct_', image);
     step1_quantization = strcat('step1_quantization_', image);
-    ss_rgb = ycbcr2rgb(subsampled/255);
+    ss_rgb = ycbcr2rgb(subsampled);
     dct_rgb = ycbcr2rgb(dct);
     quantized_rgb = ycbcr2rgb(quantized);
     
@@ -229,42 +227,18 @@ function jpegCompression(image)
     psnr = 20 * log(255/sqrt(mse));
     fprintf('\nPSNR Value: %.4f\n\n', psnr);
     
-    disp('STEP 1. Compression');
-    disp(' ');
-    disp(' ');
+    disp('STEP 1. Compression\n\n');
+    
     
     disp('Input (RGB):');
-    disp('Red');
-    disp(rgb(1:8,1:8,1));
-    disp('Blue');
-    disp(rgb(1:8,1:8,2));
-    disp('Green');
-    disp(rgb(1:8,1:8,3));
-    disp(' ');
+    disp(rgb(1:8:1));
+    disp(rgb(1:8:2));
+    disp(rgb(1:8:2));
+    disp('\n\n');
     
     disp('Output (Quantized):');
-    disp('Y');
-    disp(uint8(quantized(1:8,1:8,1)*255));
-    disp('Cb');
-    disp(uint8(quantized(1:8,1:8,2)*255));
-    disp('Cr');
-    disp(uint8(quantized(1:8,1:8,3)*255));
-    disp(' ');
-    disp(' ');
-    
-    disp('STEP 2. Decompression');
-    disp(' ');
-    disp(' ');
-    
-    disp('Input (Quantized) - See above');
-    disp(' ');
-    
-    disp('Output (IDCT RGB Converted):');
-    disp('Red');
-    disp(uint8(final_rgb(1:8,1:8,1)*255));
-    disp('Blue');
-    disp(uint8(final_rgb(1:8,1:8,2)*255));
-    disp('Green');
-    disp(uint8(final_rgb(1:8,1:8,3)*255));
-    disp(' ');
+    disp(uint8(quantized(1:8:1)*255));
+    disp(uint8(quantized(1:8:2)*255));
+    disp(uint8(quantized(1:8:2)*255));
+    disp('\n\n');
 end
